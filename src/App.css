@@ -10,11 +10,14 @@ body {
 }
 
 .searchBar {
-  width:60%;  
-  padding: 10px;
-  font-size: 15px;
+  display: inline-block;
 
-  border: 1px;
+  width: 40%;  
+  height: 60%;
+  padding: 10px;
+  font-size: 45px; 
+
+  border: none;
   border-radius: 5px;
   border-top-right-radius: 0%;
   border-bottom-right-radius: 0%;
@@ -23,11 +26,14 @@ body {
 
 .searchButton {
   all:unset;
-  width: 20%;
-  padding: 10px;  
-  font-size:15px;
+  display: inline-block;
 
-  border: 1px;
+  width: 5%;
+  height: 60%;
+  margin-top: 100px;
+  padding: 10px;  
+  font-size:42.5px;
+
   border-radius: 5px;
   border-top-left-radius: 0%;
   border-bottom-left-radius: 0%; 
@@ -35,10 +41,10 @@ body {
   background: rgb(54, 161, 81);
   color: #fff;
 
-  font-family: Lato, Arial, sans-serif;
-  
+  font-family: Lato, Arial, sans-serif;  
   text-decoration: none;
-  transition: .5s
+
+  transition: .5s;
 }
   
 button:hover {

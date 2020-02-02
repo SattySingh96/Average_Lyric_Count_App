@@ -5,15 +5,15 @@ import {fetchArtistMBID, fetchAllTracksByArtistMBID, fetchLyricsForEachTrack} fr
 
 class App extends Component {  
   state = {
+    artist: ""
+  }
 
+  handleChange = ({target}) => {
+    this.setState({ [target.name]:target.value }, () => {})
   }
 
 
-  handleSubmit = (event) => {
-    event.preventDefault();
-
-
-  }
+//Create handleSubmit button
 
 
 
@@ -23,8 +23,14 @@ class App extends Component {
   render() {
     return (      
     <div className='mainSearchBox'>           
-      <input className='searchBar' type='text' name='artist'/>       
-      <button className='searchButton' type='button' onPress={this.handleSubmit}>
+      <input 
+      className='searchBar' 
+      type='text' 
+      name='artist'
+      onChange={this.handleChange}
+      value={artist}
+      />       
+      <button className='searchButton'  onPress={this.handleSubmit}>
         <FaSearch />
       </button>  
     </div>
