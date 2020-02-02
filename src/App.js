@@ -1,26 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import {FaSearch} from 'react-icons/fa'
+import {fetchArtistMBID, fetchAllTracksByArtistMBID, fetchLyricsForEachTrack} from '../src/utils/api';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+class App extends Component {  
+  state = {
+
+  }
+
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+
+
+  }
+
+
+
+
+
+
+  render() {
+    return (      
+    <div className='mainSearchBox'>           
+      <input className='searchBar' type='text' name='artist'/>       
+      <button className='searchButton' type='button' onPress={this.handleSubmit}>
+        <FaSearch />
+      </button>  
     </div>
-  );
+    );
+  }
 }
 
 export default App;
+
