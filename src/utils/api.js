@@ -29,25 +29,57 @@ exports.fetchAllTracksByArtistMBID = (MBID) => {
   }
 }
 
-exports.fetchLyricsForEachTrack = (artist, trackList) => {
-  const promiseList = [];
-  if (trackList.length === 0 || artist.length === 0) {
-    return [];
-  } 
-  else {
-    for (let i = 0; i < trackList.length; i++) {
-      promiseList.push(axios.get(`https://api.lyrics.ovh/v1/${artist}/${trackList[i]}`))    
-    }
-    Promise.all(promiseList).then((values) => {
-      const lyricList = values.map((response) => {return response.data.lyrics})
-      console.log(lyricList)
-      return lyricList
-    })      
-  }
+exports.averageOfLyrics = (list) => {
+  const lyricWordList = [];
+  let count = 0;  
+  for (let i = 0; i < list.length; i++) {
+    lyricWordList.push(list[i].split(' '))
+  }   
+  for (let i = 0; i < lyricWordList.length; i++) {
+    for (let j = 0; j < lyricWordList[i].length; j++) {
+      count++ 
+    }          
+  }  
+  console.log(count/list.length)
+  return count/list.length
 }
 
 
 
+
+
+
+// exports.fetchLyricsForEachTrack = (artist, trackList) => {
+//   if (trackList.length === 0 || artist.length === 0) {
+//     return [];
+//   } 
+//   const returnArr = [];
+//   trackList.forEach((track) => {
+//     axios
+//     .get(`https://api.lyrics.ovh/v1/${artist}/${track}`)
+//     .then((lyric) => {
+//       console.log(lyric.data.lyrics)
+//       returnArr.push(lyric.data.lyrics)
+//     })
+//   })
+//   console.log(returnArr)
+//   return returnArr; 
+// }
+
+// const promiseList = [];
+//   if (trackList.length === 0 || artist.length === 0) {
+//     return [];
+//   } 
+//   else {
+//     for (let i = 0; i < trackList.length; i++) {
+//       promiseList.push(axios.get(`https://api.lyrics.ovh/v1/${artist}/${trackList[i]}`))    
+//     }
+//     Promise.all(promiseList).then((values) => {
+//       const lyricList = values.map((response) => {return response.data.lyrics})
+//       console.log(lyricList)
+//       return lyricList
+//     })      
+//   }
 
 
 
