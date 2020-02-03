@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
-const {fetchArtistMBID, fetchAllTracksByArtistMBID, fetchLyricsForEachTrack} = require('../utils/api');
+const {fetchArtistMBID, fetchAllTracksByArtistMBID, fetchLyricsForEachTrack, averageOfLyrics} = require('../utils/api');
 
 
 describe('fetchArtistMBID', () => {
@@ -52,8 +52,9 @@ describe('fetchLyricsForEachTrack', () => {
     });
 }); //------Superfluous i think, has been replaced with frontend nameless function in the handleSubmit function
 
-describe('a', () => {
-    it('', () => {
-        
+describe.only('averageOfLyrics', () => {
+    it('When passed an empty track array, the function returns 0', () => {
+        const input = averageOfLyrics([]);
+        expect(input).to.equal(0)        
     });
 });
