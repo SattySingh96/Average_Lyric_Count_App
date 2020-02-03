@@ -1,10 +1,15 @@
 body {
   text-align: center;
   background-color: #282c34;
+  font-family: Arial, Helvetica, sans-serif  
 }
 
 .title {
+  position: relative;
+  display: block;
+  margin: 80px;
   color: white;
+  font-size: 50px;
 }
 
 .mainSearchBox{
@@ -34,7 +39,7 @@ body {
 
   width: 5%;
   height: 60%;
-  margin-top: 100px;
+  margin-top: 101px;
   padding: 10px;  
   font-size:42.5px;
 
@@ -57,4 +62,21 @@ button:hover {
 
 .averageCount {
   font-size: 100px;
+}
+
+.infoBox {
+  display: inline-block;
+
+  width: 45%;  
+  height: 60%;
+  padding: 10px;
+  font-size: 45px; 
+
+  background-color: white;
+
+  border: none;
+  border-radius: 5px;
+
+  margin-top: 50px;
+
 }

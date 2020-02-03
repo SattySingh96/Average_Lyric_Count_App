@@ -18,9 +18,10 @@ exports.fetchAllTracksByArtistMBID = (MBID) => {
     return trackList
   } else {
     return axios
-    .get(`http://musicbrainz.org/ws/2/work?artist=${MBID}&limit=100&fmt=json`)
-    .then((data) => {           
-      const songsList = data.data.works;
+    .get(`http://musicbrainz.org/ws/2/recording?artist=${MBID}&limit=100&fmt=json`)
+    .then((data) => {  
+      console.log(data)         
+      const songsList = data.data.recordings;
       for (let i = 0; i < songsList.length; i++) {
         trackList.push(songsList[i].title)          //-----Change to Map array method instead
       }       
@@ -40,8 +41,41 @@ exports.averageOfLyrics = (list) => {
       count++ 
     }          
   }  
-  console.log(count/list.length)
-  return count/list.length
+  return Math.round(count/list.length)
+}
+
+exports.findMaxLyric = (list) => {
+  const lyricWordList = [];
+  let maxLyric = '';
+  for (let i = 0; i < list.length; i++) {
+    lyricWordList.push(list[i].split(' '))
+  }   
+  for (let i = 0; i < lyricWordList.length; i++) {
+    for (let j = 0; j < lyricWordList[i].length; j++) {
+       if (lyricWordList[i][j].length > maxLyric.length) {
+         maxLyric = lyricWordList[i][j];
+       } 
+    }          
+  }  
+  return maxLyric
+}
+
+exports.findMinLyric = (list) => {
+  const lyricWordList = [];
+  let minLyric = '';
+  for (let i = 0; i < list.length; i++) {
+    lyricWordList.push(list[i].split(' '))
+  }   
+  for (let i = 0; i < lyricWordList.length; i++) {
+    lyricWordList[i].reduce((a,b) => {
+      if (a.length <= b.length) {
+        return a;
+      } else {
+        return b;
+      }
+    });         
+  }  
+  return minLyric
 }
 
 

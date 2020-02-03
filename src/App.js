@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import './App.css';
 import {FaSearch} from 'react-icons/fa'
-import {fetchArtistMBID, fetchAllTracksByArtistMBID, averageOfLyrics} from '../src/utils/api';
+import {fetchArtistMBID, fetchAllTracksByArtistMBID, averageOfLyrics, findMaxLyric} from '../src/utils/api';
 import Axios from 'axios';
 
 class App extends Component {  
   state = {
     artist: "",
     lyricsList: [],
-    average: 0
+    average: 0,
+    maxLyric:''
   }
 
   handleChange = ({target}) => {
@@ -25,9 +26,9 @@ class App extends Component {
         tracks.forEach((track) => {
           return Axios.get(`https://api.lyrics.ovh/v1/${this.state.artist}/${track}`)
           .then((lyric) => {
-            this.state.lyricsList.push(lyric.data.lyrics)
-            console.log(this.state.average)
-            this.setState({ average : averageOfLyrics(this.state.lyricsList)})                 
+            this.state.lyricsList.push(lyric.data.lyrics)            
+            this.setState({ average : averageOfLyrics(this.state.lyricsList)})     
+            this.setState({ maxLyric : findMaxLyric(this.state.lyricsList)})            
           })
         })        
       })
@@ -39,7 +40,15 @@ class App extends Component {
         <h1 className='averageCount'>
           {this.state.average}
         </h1>
-      )  
+      )        
+  }
+
+  renderMaxLyric = () => {
+    return (
+      <h1 className='maxLyric'>
+        {this.state.maxLyric}        
+      </h1>
+    )
   }
 
 
@@ -53,8 +62,11 @@ class App extends Component {
             <FaSearch />
           </button>  
         </div>
+        <div className='infoBox'>
+          {this.renderAverage()}    
+        </div>
         <div>
-          {this.renderAverage()}     
+          
         </div>
     </div>      
     );

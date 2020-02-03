@@ -50,4 +50,10 @@ describe('fetchLyricsForEachTrack', () => {
         expect(input).to.eventually.be.an('array')
         expect(input).to.eventually.have.a.lengthOf(3);
     });
+}); //------Superfluous i think, has been replaced with frontend nameless function in the handleSubmit function
+
+describe('a', () => {
+    it('', () => {
+        
+    });
 });
