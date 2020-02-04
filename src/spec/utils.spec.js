@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
-const {fetchArtistMBID, fetchAllTracksByArtistMBID, fetchLyricsForEachTrack, averageOfLyrics} = require('../utils/api');
+const {fetchArtistMBID, fetchAllTracksByArtistMBID, fetchLyricsForEachTrack, averageOfLyrics, findMaxLyric, wordFreqInLyrics} = require('../utils/api');
 
 
 describe('fetchArtistMBID', () => {
@@ -29,32 +29,55 @@ describe('fetchAllTracksByArtistMBID', () => {
       const input = fetchAllTracksByArtistMBID('1d46cb3a-8071-45ba-855e-74e3cff20974');
       expect(input).to.eventually.be.an('array');      
     });
-    xit('when invoked with a valid, but non-existant, MBID, the function returns an array of all tracks by that artist', () => {
+    it('when invoked with a valid, but non-existant, MBID, the function returns an array of all tracks by that artist', () => {
         const input = fetchAllTracksByArtistMBID('1d46cb3a-8171-45ba-855e-74e3cff20974');
         expect(input).to.eventually.be.an('array');         // ------ Fix this test -----
     });
 });
 
-describe('fetchLyricsForEachTrack', () => {
-    it('When invoked with an artist string but an empty array, return an empty array', () => {
-        const input = fetchLyricsForEachTrack('coldplay',[])
-        expect(input).to.deep.equal([])        
-    });
-    it('When invoked with an array but an empty artist string, return an empty array', () => {
-        const input = fetchLyricsForEachTrack('',['clocks','yellow','talk'])
-        expect(input).to.deep.equal([])        
-    });
-    it('When invoked with an array and an artist, return an array of lyrics', () => {
-        const input = fetchLyricsForEachTrack('coldplay',['clocks', 'yellow', 'fix you'])    
-        console.log(input) 
-        expect(input).to.eventually.be.an('array')
-        expect(input).to.eventually.have.a.lengthOf(3);
-    });
-}); //------Superfluous i think, has been replaced with frontend nameless function in the handleSubmit function
-
-describe.only('averageOfLyrics', () => {
-    it('When passed an empty track array, the function returns 0', () => {
+describe('averageOfLyrics', () => {
+    it('When passed an empty lyrics array, the function returns 0', () => {
         const input = averageOfLyrics([]);
         expect(input).to.equal(0)        
+    });
+    it('When passed an array with a single set of lyrics, the function retuns the length of that set of lyrics', () => {
+        const input = averageOfLyrics(['These are test lyrics'])
+        expect(input).to.equal(4)
+         
+    });
+    it('When passed an array of multiple sets of lyrics, the function returns the average word count across all sets of lyrics', () => {
+        const input = averageOfLyrics(['This is test lyric number 1', 'These are test lyrics', 'Test lyrics']);
+        expect(input).to.equal(4)
+    });
+});
+
+describe('findMaxLyric', () => {
+    it('When passed an empty lyrics array, the function returns an empty string', () => {
+        const input = findMaxLyric([]);
+        expect(input).to.equal('')        
+    });
+    it('When passed an array with a single set of lyrics, the function retuns the longest word in that set of lyrics', () => {
+        const input = findMaxLyric(['These are test lyrics'])
+        expect(input).to.equal('lyrics')
+         
+    });   
+    it('When passed an array of multiple sets of lyrics, the function returns the longest word out of all the lyric sets', () => {
+        const input = findMaxLyric(['test one', 'test two', 'test three']);
+        expect(input).to.equal('three')
+    });
+});
+
+describe.only('wordFreqInLyrics', () => {
+    it('when passed an empty array, the function returns an empty array', () => {
+        const input = wordFreqInLyrics([])
+        expect(input).to.deep.equal([])
+    });
+    it('when passed an array with a single set of lyrics, the function returns an array containing a single object detailing the frequency of words', () => {
+        const input = wordFreqInLyrics(['These are are the the the test test test test lyrics lyrics lyrics lyrics lyrics'])
+        expect(input).to.be.an('array').and.to.have.a.lengthOf(1)
+    });
+    it('when passed an array with mulitple sets of lyrics, the function returns an array containing multiple objects detailing the frequency of words for each set of lyrics', () => {
+        const input = wordFreqInLyrics(['These are are the the the test test test test lyrics lyrics lyrics lyrics lyrics','These are are the the the test test test test lyrics lyrics lyrics lyrics lyrics'])
+        expect(input).to.be.an('array').and.to.have.a.lengthOf(2)
     });
 });

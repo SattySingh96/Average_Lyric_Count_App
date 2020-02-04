@@ -19,8 +19,7 @@ exports.fetchAllTracksByArtistMBID = (MBID) => {
   } else {
     return axios
     .get(`http://musicbrainz.org/ws/2/work?artist=${MBID}&limit=100&fmt=json`)
-    .then((data) => {  
-      console.log(data)         
+    .then((data) => {               
       const songsList = data.data.works;
       for (let i = 0; i < songsList.length; i++) {
         trackList.push(songsList[i].title)          //-----Change to Map array method instead
@@ -28,7 +27,7 @@ exports.fetchAllTracksByArtistMBID = (MBID) => {
       return trackList
     })
   }
-}
+};
 
 exports.averageOfLyrics = (list) => {
   let count = 0;                           //-----Change name of function - something more relevant
@@ -46,7 +45,7 @@ exports.averageOfLyrics = (list) => {
    }  
   return Math.round(count/list.length)
   }             
-}
+};
 
 exports.findMaxLyric = (list) => {
   const lyricWordList = [];
@@ -62,22 +61,23 @@ exports.findMaxLyric = (list) => {
     }          
   }  
   return maxLyric
-}
+};
 
-exports.findMinLyric = (list) => {
-  const lyricWordList = [];
-  let minLyric = '';
-  for (let i = 0; i < list.length; i++) {
-    lyricWordList.push(list[i].split(' '))
-  }   
-  for (let i = 0; i < lyricWordList.length; i++) {
-    lyricWordList[i].reduce((a,b) => {
-      if (a.length <= b.length) {
-        return a;
-      } else {
-        return b;
+exports.wordFreqInLyrics = (list) => {
+  const freqArray = [];
+  function findFreqOfWords(text) {
+    var words = text.split(' ');
+    var freqObj = {};
+    words.forEach((word) => {
+      if (!freqObj[word]) {
+        freqObj[word] = 0
       }
-    });         
-  }  
-  return minLyric
+    freqObj[word] += 1;
+    })
+ return freqObj
 }
+  list.forEach((text) => {
+    freqArray.push(findFreqOfWords(text));  
+  })  
+  return freqArray;  
+};
