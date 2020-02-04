@@ -1,68 +1,49 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Tech Test - Average Word Count
 
-## Available Scripts
+## Getting Setup - Locally
 
-In the project directory, you can run:
+1. Before opening or running the app, Node package manager is needed to install dependencies, follow the below link to install npm & node.js (If already installed, skip to step 2):
 
-### `npm start`
+```
+https://www.npmjs.com/get-npm
+```
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. Open terminal, and run the following commands to clone down the repo and move into the folder:
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+```
+git clone https://github.com/SattySingh96/Average_Lyric_Count_App.git
 
-### `npm test`
+cd ./Average_Lyric_Count_App
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Run the following command to install all dependencies:
 
-### `npm run build`
+```
+npm install
+```
+4. Run the following command in terminal to view the in VS Code:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+code . 
+```
+5. Run the app locally:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+npm start
+```
+6. Enter an artist in the searchbar and click the search button to get back:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Average lyric count across all songs.
+* Longest lyric used by the artist.
+* Word cloud visualising the lyrics from the first 10 songs sent back by the API.
 
-### `npm run eject`
+## Testing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Testing was done using Mocha & Chai
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Run the following command to run tests:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+```
+npm run test-utils
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
