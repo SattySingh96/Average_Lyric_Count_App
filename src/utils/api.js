@@ -48,8 +48,8 @@ exports.averageOfLyrics = (list) => {
 };
 
 exports.findMaxLyric = (list) => {
-  const lyricWordList = [];
   let maxLyric = '';
+  const lyricWordList = [];  
   for (let i = 0; i < list.length; i++) {
     lyricWordList.push(list[i].split(' '))
   }   
@@ -81,3 +81,18 @@ exports.wordFreqInLyrics = (list) => {
   })  
   return freqArray;  
 };
+
+exports.createWordCloudData = (list) => {
+    const dataArr = []  
+    for (let i = 0; i < list.length; i++) {    
+      for (let key in list[i]) {
+         const dataObj = {}
+         if ((key.length > 0)) {
+          dataObj['value'] = key 
+          dataObj['count'] = list[i][key] 
+          dataArr.push(dataObj);
+         }
+      }       
+    }
+    return dataArr;
+  }

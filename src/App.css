@@ -23,7 +23,7 @@ body {
   display: inline-block;
 
   width: 40%;  
-  height: 60%;
+  height: 51px;
   padding: 10px;
   font-size: 45px; 
 
@@ -39,10 +39,9 @@ body {
   display: inline-block;
 
   width: 5%;
-  height: 60%;
   margin-top: 101px;
   padding: 10px;  
-  font-size:42.5px;
+  font-size:41.5px;
 
   border-radius: 5px;
   border-top-left-radius: 0%;
@@ -70,4 +69,8 @@ button:hover {
 .maxLyric {
   font-size: 60px;
   color: white;
+}
+
+.simple-cloud .tag-cloud-tag {
+  cursor: pointer;
 }

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
 import {FaSearch} from 'react-icons/fa'
-import {fetchArtistMBID, fetchAllTracksByArtistMBID, averageOfLyrics, findMaxLyric, wordFreqInList} from '../src/utils/api';
+import {fetchArtistMBID, fetchAllTracksByArtistMBID, averageOfLyrics, findMaxLyric, wordFreqInLyrics, createWordCloudData} from '../src/utils/api';
 import axios from 'axios';
+import { TagCloud } from 'react-tagcloud'
 
 
 class App extends Component {  
@@ -19,7 +20,7 @@ class App extends Component {
   }
 
   handleSubmit = (event) => {
-    event.preventDefault();
+    event.preventDefault();    
     fetchArtistMBID(this.state.artist)                                                                      // Fetches the MusicBrainz ID for the artist given
     .then((MBID) => {    
       fetchAllTracksByArtistMBID(MBID)
@@ -27,10 +28,10 @@ class App extends Component {
         tracks.forEach((track) => {
           return axios.get(`https://api.lyrics.ovh/v1/${this.state.artist}/${track}`)
           .then((lyric) => {   
-            const regex = /\r?\n|\r|\*|\[|\]|\(|\?|\)|\.|:|;|,|—|-|=|\s/g                                       // Fetches lyrics for each track, then passes the data through averageOfLyrics & findMaxLyric functions
+            const regex = /\r?\n|\r|\*|\[|\]|\(|\?|\)|\.|:|;|,|—|-|=|\s/g                                   // Fetches lyrics for each track, then passes the data through averageOfLyrics & findMaxLyric functions
             this.state.lyricsList.push(lyric.data.lyrics.replace(regex,' '))        
-            this.setState({ average : averageOfLyrics(this.state.lyricsList), maxLyric : findMaxLyric(this.state.lyricsList), lyricFreqObj : wordFreqInList(this.state.lyricsList)})     
-            console.log(this.state.lyricFreqObj)
+            this.setState({ average : averageOfLyrics(this.state.lyricsList), maxLyric : findMaxLyric(this.state.lyricsList), lyricFreqObj : wordFreqInLyrics(this.state.lyricsList)})     
+            console.log(this.state.lyricFreqObj[0])
           })
         })        
       })
@@ -52,6 +53,18 @@ class App extends Component {
       </h1>    
     )
   } 
+
+  renderWordCloud = () => {
+    return (
+      <TagCloud
+      minSize={12}
+      maxSize={35}
+      tags={createWordCloudData(this.state.lyricFreqObj.slice(0,1))}
+      className="simple-cloud"
+      onClick={tag => alert(`'${tag.value}' was selected!`)}
+    />
+    )
+  }
  
 
 render() {
@@ -69,7 +82,10 @@ render() {
         </div> 
         <div className='maxWordBox'>
           {this.renderMaxLyric()}              
-        </div>       
+        </div>  
+        <div>
+          {this.renderWordCloud()}
+        </div>           
     </div>      
     );
   }

@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const chaiAsPromised = require('chai-as-promised');
 chai.use(chaiAsPromised);
-const {fetchArtistMBID, fetchAllTracksByArtistMBID, fetchLyricsForEachTrack, averageOfLyrics, findMaxLyric, wordFreqInLyrics} = require('../utils/api');
+const {fetchArtistMBID, fetchAllTracksByArtistMBID, createWordCloudData, averageOfLyrics, findMaxLyric, wordFreqInLyrics} = require('../utils/api');
 
 
 describe('fetchArtistMBID', () => {
@@ -14,10 +14,6 @@ describe('fetchArtistMBID', () => {
         const input = fetchArtistMBID('deacon blue');    
         return expect(input).to.eventually.be.a('string'); 
     });   
-    it('When invoked with an invalid artist name, return an error message', () => {   
-        const input = fetchArtistMBID(1111);    
-        expect(input).to.deep.equal({msg:'Invalid Artist Name'})
-    });  // ======= Dont think this is needed, front end input box will only give string anyway
 });
 
 describe('fetchAllTracksByArtistMBID', () => {
@@ -28,10 +24,6 @@ describe('fetchAllTracksByArtistMBID', () => {
     it('when invoked with a valid MBID, the function returns an array of all tracks by that artist', () => {
       const input = fetchAllTracksByArtistMBID('1d46cb3a-8071-45ba-855e-74e3cff20974');
       expect(input).to.eventually.be.an('array');      
-    });
-    it('when invoked with a valid, but non-existant, MBID, the function returns an array of all tracks by that artist', () => {
-        const input = fetchAllTracksByArtistMBID('1d46cb3a-8171-45ba-855e-74e3cff20974');
-        expect(input).to.eventually.be.an('array');         // ------ Fix this test -----
     });
 });
 
@@ -67,7 +59,7 @@ describe('findMaxLyric', () => {
     });
 });
 
-describe.only('wordFreqInLyrics', () => {
+describe('wordFreqInLyrics', () => {
     it('when passed an empty array, the function returns an empty array', () => {
         const input = wordFreqInLyrics([])
         expect(input).to.deep.equal([])
@@ -81,3 +73,14 @@ describe.only('wordFreqInLyrics', () => {
         expect(input).to.be.an('array').and.to.have.a.lengthOf(2)
     });
 });
+
+describe('createWordCloudData', () => {
+    it('When given an empty frequency array, the function returns an empty array', () => {
+        const input = createWordCloudData([])
+        expect(input).to.deep.equal([])        
+    })    
+    it('When given an array containing frequency objects (as returned by the wordFreqInLyrics function), the function returns an array containing formatted data compatabile with react-tagcloud', () => {
+        const input = createWordCloudData([{"Test": 3, "Word": 8}])
+        expect(input).to.deep.equal([{ value: "Test", count: 3 }, { value: "Word", count: 8 }])        
+    })  
+})
