@@ -58,7 +58,7 @@ class App extends Component {
     return (
       <TagCloud
       minSize={12}
-      maxSize={35}
+      maxSize={55}
       tags={createWordCloudData(this.state.lyricFreqObj.slice(0,1))}
       className="simple-cloud"
       onClick={tag => alert(`'${tag.value}' was selected!`)}
