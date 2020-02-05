@@ -47,16 +47,15 @@ class App extends Component {
               average : averageOfLyrics(this.state.lyricsList), 
               maxLyric : findMaxLyric(this.state.lyricsList), 
               lyricFreqObj : wordFreqInLyrics(this.state.lyricsList),
-              wordCloudData : createWordCloudData(this.state.lyricFreqObj.slice(0,1))            
-            })     
-            console.log(this.state.lyricFreqObj[0])
+              wordCloudData : createWordCloudData(this.state.lyricFreqObj.slice(0,5))            
+            })                
           })
         })        
       })
     })    
   }    
   
-  renderAverage = () => {                                                  // Renders average number of words for each artist, from the value in state
+  renderAverage = () => {                                                
       return (
         <h1 className='averageCount'>
           Average Number of Words: {this.state.average}
@@ -64,7 +63,7 @@ class App extends Component {
       )        
   }
 
-  renderMaxLyric = () => {                                                 // Renders longest word for each artist, from the value in state
+  renderMaxLyric = () => {                                                 
     return (
       <h1 className='maxLyric'>
         Longest Lyric: {this.state.maxLyric}        
@@ -79,6 +78,7 @@ class App extends Component {
       maxSize={55}
       tags={this.state.wordCloudData}
       className="simple-cloud"
+      style={{textAlign: 'center' }}
       onClick={tag => alert(`'${tag.value}' was selected!`)}
     />
     )

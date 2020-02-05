@@ -7,7 +7,7 @@ exports.fetchArtistMBID = (artist) => {
     return axios
     .get(`http://musicbrainz.org/ws/2/artist/?query=artist:${artist}&fmt=json`) 
     .then((data) => {
-      return data.data.artists[0].id;   //-----------Console.log(data.data.artists[0].id)
+      return data.data.artists[0].id;  
     });
   };
 };
@@ -22,7 +22,7 @@ exports.fetchAllTracksByArtistMBID = (MBID) => {
     .then((data) => {               
       const songsList = data.data.works;
       for (let i = 0; i < songsList.length; i++) {
-        trackList.push(songsList[i].title)          //-----Change to Map array method instead
+        trackList.push(songsList[i].title)          
       }       
       return trackList
     })
@@ -30,7 +30,7 @@ exports.fetchAllTracksByArtistMBID = (MBID) => {
 };
 
 exports.averageOfLyrics = (list) => {
-  let count = 0;                           //-----Change name of function - something more relevant
+  let count = 0;                          
   if (list.length === 0) {
     return count; 
   } else {
