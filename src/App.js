@@ -12,7 +12,20 @@ class App extends Component {
     lyricsList: [],
     average: 0,
     maxLyric:'',
-    lyricFreqObj: []
+    lyricFreqObj: [],
+    wordCloudData: []
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.artist !== prevState.artist) {
+     this.setState({
+      lyricsList: [],
+      average: 0,
+      maxLyric:'',
+      lyricFreqObj: [],
+      wordCloudData: []
+     });
+    }
   }
 
   handleChange = ({target}) => {
@@ -30,13 +43,18 @@ class App extends Component {
           .then((lyric) => {   
             const regex = /\r?\n|\r|\*|\[|\]|\(|\?|\)|\.|:|;|,|—|-|=|\s/g                                   // Fetches lyrics for each track, then passes the data through averageOfLyrics & findMaxLyric functions
             this.state.lyricsList.push(lyric.data.lyrics.replace(regex,' '))        
-            this.setState({ average : averageOfLyrics(this.state.lyricsList), maxLyric : findMaxLyric(this.state.lyricsList), lyricFreqObj : wordFreqInLyrics(this.state.lyricsList)})     
+            this.setState({ 
+              average : averageOfLyrics(this.state.lyricsList), 
+              maxLyric : findMaxLyric(this.state.lyricsList), 
+              lyricFreqObj : wordFreqInLyrics(this.state.lyricsList),
+              wordCloudData : createWordCloudData(this.state.lyricFreqObj.slice(0,1))            
+            })     
             console.log(this.state.lyricFreqObj[0])
           })
         })        
       })
     })    
-  }  
+  }    
   
   renderAverage = () => {                                                  // Renders average number of words for each artist, from the value in state
       return (
@@ -59,7 +77,7 @@ class App extends Component {
       <TagCloud
       minSize={12}
       maxSize={55}
-      tags={createWordCloudData(this.state.lyricFreqObj.slice(0,1))}
+      tags={this.state.wordCloudData}
       className="simple-cloud"
       onClick={tag => alert(`'${tag.value}' was selected!`)}
     />

@@ -21,17 +21,12 @@ cd ./Average_Lyric_Count_App
 ```
 npm install
 ```
-4. Run the following command in terminal to view the in VS Code:
-
-```
-code . 
-```
-5. Run the app locally:
+4. Run the app locally:
 
 ```
 npm start
 ```
-6. Enter an artist in the searchbar and click the search button to get back:
+5. Enter an artist in the searchbar and click the search button to get back:
 
 * Average lyric count across all songs.
 * Longest lyric used by the artist.
